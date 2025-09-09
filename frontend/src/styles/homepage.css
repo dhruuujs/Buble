@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+
+.homeSection{
+min-height: 100vh;
+min-width:100vw;
+box-sizing: border-box;
+background:#1d1e1f;
+/*4075ef-skyblue,12FC87-green,1D1E1F-fullBlack,282828-midBlack*/
+}
+
+
+.authBtnContainer{
+    height:70vh;
+    width:50vw;
+    border-radius: 5px;
+    background: #282828;
+}
+
+
+.homeLoginBtn{
+outline:none;
+cursor: pointer;
+font-size:24px;
+font-family: 'Lato', sans-serif;
+font-weight: 700;
+color:#f4f4f4;
+background:#12FC87;
+border:2px solid #12FC87;
+}
+
+
+.homeSignBtn{
+outline:none;
+cursor: pointer;
+font-size:24px;
+color:#12FC87;
+font-family: 'Lato', sans-serif;
+font-weight: 700;
+border:2px solid #12FC87;
+}

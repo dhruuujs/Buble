@@ -1,0 +1,13 @@
+.chatbox{
+    display: grid;
+    grid-template-rows: 0.25fr 3fr 0.4fr;
+}
+
+.no-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
