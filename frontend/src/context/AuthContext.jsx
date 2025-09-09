@@ -61,7 +61,6 @@ verifyToken(storedToken).then(user=>{
 },[verifyToken,logout])
 
 
-
 return(
     <AuthContext.Provider
     value={{
