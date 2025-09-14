@@ -1,39 +1,13 @@
-import express,{} from 'express';
-import dotenv from 'dotenv';
-import helmet from 'helmet';
+import http from 'http';
+import app from '../backend/app.js';
+import {Server} from 'socket.io';
+
+const PORT = process.env.PORT || 5000;
+const server = http.createServer(app);
+const io = new Server(server);
 
 
-const app=express();
-dotenv.config();
-
-//Configs
-app.use(cors({
-    orgin:"http://localhost:5173",
-    optionsSuccessStatus:200
-    }))
-app.use(helmet());
-app.use(express.json());
-app.use(express.urlencoded({extended:true}))
-
-
-//Routers
-try{
-app.use("/account",login);
-app.use("/account",signup);
-app.use("/account",auth);
-app.use("/account",showFriendList)
-
-app.use("/chats")
-
-
-}catch(err){
-  console.log(err);
-}
-
-
-app.get("/",(req,res)=>{
-res.status(200).send(`Server up and listening on port ${PORT}, nigg`)
+io.on('connection',(socket)=>{
+  console.log("A client connected")
 })
-
-console.log("Server Dispur running.")
-app.listen(5000,()=>console.log(`Server listening on: ${PORT}`))
+server.listen(5000,()=>console.log(`Server Banana running on port: ${PORT}`));
