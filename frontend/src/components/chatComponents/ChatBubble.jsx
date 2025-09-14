@@ -5,13 +5,11 @@ function ChatBubble({message,sender,name,messageId,onDelete,timestamp}) {
 
 const response = fetch("http://localhost:5000/chats", async (req,res)=>{
 
-
   if(response.ok){
     console.log((await response).json())
   }
 
 })
-
 
 
   const getInitial = (name) => {
