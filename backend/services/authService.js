@@ -1,7 +1,6 @@
-import Users from ''
+import Users from '../models/usermodel.js'
 import bcrypt from 'bcryptjs'
 import {generateToken} from '../utils/jwt.js'
-
 
 
 class AuthService{
