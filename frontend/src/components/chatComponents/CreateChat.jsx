@@ -17,6 +17,11 @@ function DateStamp({ date }) {
     month: 'long',
     day: 'numeric',
   });
+
+  const td = new Date(formattedDate).toLocaleString('en-US')
+const tdD=td-formattedDate
+  console.log(tdD)
+  
   return (
     <div className="flex justify-center my-4">
       <span className="bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold">
@@ -26,28 +31,24 @@ function DateStamp({ date }) {
   );
 }
 
-export default function CreateChat() {
+export default function CreateChat({selectedChat}) {
   const { user } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const chatEndRef = useRef(null);
 
-  // Connect/clean up socket and listen for incoming messages
   useEffect(() => {
-    socket.connect();
+    socket.connect(SOCKET_SERVER_URL);
 
-    // Listen for messages from server
     socket.on('receive_message', (msg) => {
       setMessages(prev => [...prev, msg]);
     });
-
     return () => {
       socket.off('receive_message');
       socket.disconnect();
     };
-  }, []);
+  },[console.log("Listening for msgs")]);
 
-  // Scroll to bottom whenever messages update
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -68,8 +69,8 @@ export default function CreateChat() {
       timestamp: new Date().toISOString(),
     };
 
-    // Emit to server
-    socket.emit('send_message', newMessage);
+    const myMsg="My message"
+    socket.emit('send_message', trimmed);
 
     // Optionally, show message instantly (optimistic UI)
     setMessages(prev => [...prev, newMessage]);
@@ -86,7 +87,6 @@ export default function CreateChat() {
     }
   };
 
-  // Group messages by date
   const groupedMessages = messages.reduce((groups, msg) => {
     const date = new Date(msg.timestamp).toISOString().split('T')[0];
     if (!groups[date]) groups[date] = [];
@@ -96,31 +96,24 @@ export default function CreateChat() {
   const sortedDates = Object.keys(groupedMessages).sort((a, b) => new Date(a) - new Date(b));
 
   return (
-    <div className="chatbox flex flex-col h-[90vh] w-full">
+    <>
+    {selectedChat ?(
+      <div className="chatbox flex flex-col h-[90vh] w-full">
       {/* Header */}
-      <div className="flex py-0 relative">
-        <button
-          className="h-10 w-10 ml-2 mt-2 mr-[-1.5em] p-0 shadow-[1px_1px_7px_rgba(0,0,0,0.50),-1px_-1px_6px_rgba(54,54,54,0.85)] rounded-2xl"
-          onClick={() => alert("Hello")}
-        >
-          <svg className="stroke-[3] stroke-[#f4f4f4] ml-1" width="20" height="24" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0.844308" y1="-0.844308" x2="30.6765" y2="-0.844308" transform="matrix(1 0 0 -1 1.17033 14.114)" />
-            <line x1="0.844308" y1="-0.844308" x2="18.8562" y2="-0.844308" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 14.6199 28.9684)" />
-            <path d="M1.8755 14.9619L15.8059 1.03154" />
-          </svg>
-        </button>
+
+      <div className="flex py-3 relative bg-[#232323]">   
         <div className="mr-2">
-          <img src={asian} alt="User" className="h-15 w-15 ml-8 rounded-4xl" />
+          <img src={asian} alt="User" className="h-15 w-15 ml-3 rounded-4xl" />
         </div>
         <div className=" flex flex-col pt-2">
-          <h2 className="text-[1rem] mb-[-0.4em] font-bold">{user?.username || "Alice"}</h2>
+          <h2 className="text-[1rem] mb-[-0.4em] font-bold">{selectedChat?.name || "Alice"}</h2>
           <span>Last seen on 1:45am</span>
         </div>
       </div>
 
       {/* Chat messages */}
-      <div className="flex flex-col">
-        <div id="chatCtrlParentWindow" className="chatCtrlView no-scrollbar bg-[#282828] overflow-hidden flex flex-col pb-17 h-[75vh] ">
+      <div className="flex flex-col w-full">
+        <div id="chatCtrlParentWindow" className="chatCtrlView no-scrollbar bg-[#282828] overflow-hidden flex flex-col pb-5 h-[75vh] ">
           <div className="flex-1 overflow-y-auto space-y-4">
             {sortedDates.map((date) => (
               <div key={date}>
@@ -143,21 +136,22 @@ export default function CreateChat() {
         </div>
 
         {/* Input controls */}
-        <div className="ctrlContainer flex absolute bg-[#282828] w-[65.8vw] shadow-[0px_-10px_20px_rgba(20,20,20,0.2)] p-2 bottom-0 z-50">
-          <form onSubmit={handleSendMessage}>
-            <textarea
+        <div className="ctrlContainer flex absolute bg-[#282828] w-[calc(100%-29.5vw)] shadow-[0px_-10px_20px_rgba(20,20,20,0.2)] p-2 bottom-0">
+          <form onSubmit={handleSendMessage} className="h-fit w-full inline-block items-center">
+            <input rows="2"
+              id="msgBox"
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Enter your message"
-              className="bg-[#f4f4f4] text-[#252525] mt-2 h-12 text-[1rem] ml-0 p-3 w-[50vw] rounded-[50px] outline-0"
-            />
-            <button type="submit" className="h-12 w-11 cursor-pointer ml-2 px-3 rounded-[50px] bg-green-800">
+              className="bg-[#f4f4f4] text-[#252525] mt-2 h-12 text-[1rem] ml-0 p-3 w-[50rem] rounded-[50px] outline-0"/>
+              <button type="submit" className="h-12 w-11 cursor-pointer ml-2 px-3 rounded-[50px] bg-green-800">
               <img src={sendbtn} alt="Send" />
             </button>
           </form>
         </div>
       </div>
-    </div>
-  );
-}
+    </div> ):(<p><strong>Select a contact to start chating</strong></p>)}
+    </>
+    )
+  }
