@@ -21,21 +21,17 @@ const {login} = useContext(AuthContext);
 
 const handleLogin = async(e)=>{
 e.preventDefault();
-
-
 try{
   if(!email){
     setError("Enter username or email");
     setIsLoading(false);
     return;
   }
-
   if(!psw){
     setError("Enter password")
     setIsLoading(false);
     return;
   }
-
     setError("")
     setIsLoading(true);
 
@@ -50,16 +46,19 @@ try{
   });
 
   const data = await response.json();
-  console.log("Frontend says:-",data)
-  
-  if(response.ok){
-  console.log("Frontend 2nd says:-",data)
-  login(data.user,data.token)
-  }else{
+  if(!data){
     setIsLoading(false)
-   setError(data.error);
+    setError(`Error: ${data.error}`);
   }
 
+  if(response.ok){
+  login(data.user,data.token)
+  }else{
+  login(null)
+    setIsLoading(false)
+  setError(data.error);
+  return;
+}
 
   }catch(err){ 
     setIsLoading(false)
@@ -115,7 +114,9 @@ try{
             </div>
           </div>
 
-          <div className="text-red-600" style={{fontFamily:"'Roboto', san-serif"}}>{error}</div>
+          <div className="text-red-600" style={{fontFamily:"'Roboto', sans-serif"}}>
+            {error}
+          </div>
 
           <button type="submit" 
             className="w-full py-3 mt-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -123,7 +124,7 @@ try{
             {isLoading ? "Logging in" :"Login"}
           </button>
         </form>
-
+        
      <div className="text-[#222222] ml-13">
              Don't have an account?
              <span className="underline underline-offset-4 hover:underline-offset-6 transition-[500] decoration-sky-500"><Link to="/signup"> signup</Link></span>
