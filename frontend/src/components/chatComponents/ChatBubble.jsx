@@ -1,21 +1,16 @@
-import React,{useState,useRef,useEffect} from 'react'
-
+import React,{useState,useRef,useEffect,useContext} from 'react'
+import { AuthContext } from '../../context/AuthContext';
 
 function ChatBubble({message,sender,name,messageId,onDelete,timestamp}) {
 
-const response = fetch("http://localhost:5000/chats", async (req,res)=>{
+const user = useContext(AuthContext);
+name ="Dhru"
 
-  if(response.ok){
-    console.log((await response).json())
-  }
-
-})
-
+  //if(response.ok){console.log(response.json())}
 
   const getInitial = (name) => {
     return name.charAt(0).toUpperCase();
 };
-
 
 const [isPopupOpen ,setIsPopupOpen] = useState(false);
 const bubbleRef =useRef(null)
@@ -23,13 +18,9 @@ const bubbleRef =useRef(null)
 
 const messagesTest = [
     { id: 1, text: 'Hello, how are you?', sender: 'other', name: 'Alice' },
-    { id: 2, text: 'I am doing great, thanks!', sender: 'me', name: 'You' },
-    { id: 3, text: 'What are you working on today?', sender: 'other', name: 'Alice' },
-    { id: 4, text: 'Just building a cool chat UI with React and Tailwind!', sender: 'me', name: 'You' },
-    { id: 5, text: 'Awesome!', sender: 'other', name: 'Alice' },
-    { id: 6, text: 'This looks so clean.', sender: 'other', name: 'Alice' },
-    { id: 7, text: 'The bubbles are perfectly aligned.', sender: 'me', name: 'You' },
-    { id: 8, text: 'The use of Tailwind makes styling a breeze.', sender: 'me', name: 'You' },
+    { id: 2, text: 'This looks so clean.', sender: 'other', name: 'Alice' },
+    { id: 3, text: 'The bubbles are perfectly aligned.', sender: 'me', name: 'You' },
+    { id: 4, text: 'The use of Tailwind makes styling a breeze.', sender: 'me', name: 'You' },
   ];
 
 
@@ -55,7 +46,7 @@ const messagesTest = [
   `;
 
   const messageBubbleClasses = `
-    max-w-[70%] p-3 m-2 rounded-xl
+    max-w-[70%] p-3 m-1 rounded-xl
     text-white shadow-[3px_3px_10px_rgba(0,0,0,0.5),-1px_-1px_15px_rgba(80,80,80,0.5)] transform transition-transform duration-200
     ${isMe ? 'bg-blue-600 rounded-br-none' : 'bg-gray-700 rounded-bl-none'}
   `;
@@ -113,7 +104,7 @@ const togglePopup=()=>{
           </div>
         )}
 
-        <div className={messageBubbleClasses} style={{wordWrap:'break-word;'}} onClick={togglePopup}>
+        <div className={messageBubbleClasses} onClick={togglePopup}>
           <div>{message}</div>
           <div className="text-xs opacity-75 mt-1">{formattedTime}</div>
         </div>
