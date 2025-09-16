@@ -18,7 +18,6 @@ const {login} = useContext(AuthContext)
 const submitForm = async(e)=>{
 e.preventDefault();
 
-
 try{
     if(!text){
       setError("Enter username") 
@@ -35,7 +34,6 @@ try{
       setError("Enter password");
       return;
     }
-
 
     if(!secondaryCreds){
       setError("Enter phone number or email")
@@ -57,13 +55,12 @@ try{
 });
 
 const data = await response.json();
-login(data.username,data.token)
 
+login(data.username,data.token)
 }catch(err){
     setError(`Failed to create account at the moment`)
     setLoading(false);
   }
-
 }
 
 
