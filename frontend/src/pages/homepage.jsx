@@ -8,7 +8,7 @@ function HomePage() {
 
     const [isOverlayVisible, setIsOverlayVisible] = useState(false);
     const [isSignupOverlayVisible,setSignupOverlayVisible]=useState(false);
-    
+  
     const handleShowOverlay = () => {
     setIsOverlayVisible(true);
   };
