@@ -4,7 +4,7 @@ import ChatListLayout from '../src/components/chatComponents/chatlayout'
 import SignupForm from './pages/signupform'; 
 import LoginForm from './pages/loginform'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import AuthProvider,{AuthContext} from './context/AuthContext';
+import {AuthProvider} from './context/AuthContext';
 import ProtectedRoute from './components/privateroutes';
 
 
@@ -15,20 +15,18 @@ return(
 <Router>
 <AuthProvider>
 <Routes>
-    
-<Route path="/" element={
+    <Route path="/" element={
     <section className="">
     <HomePage/>
-    </section>
-    }/>
+    </section>}/>
 
-
-
+{/*<Route element={<ProtectedRoute/>}>*/}
 <Route path="/chat" element={
     <section className="">
     <ChatListLayout/>
     </section>
     }/>
+{/*</Route>*/}
 
 
 <Route path="/signup" element={
@@ -42,11 +40,6 @@ return(
     <LoginForm/>
     </section>
     }/>
-
-
-
-
-
 
 </Routes>
 </AuthProvider>
