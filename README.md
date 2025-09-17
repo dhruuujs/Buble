@@ -7,8 +7,8 @@ This project is a react and express js chatting app, im still working on this ap
 React, Expressjs, and Postgresql
 
 ## 2)HOW TO RUN:
-## Frontend
-●) Navigate to the frontend directory
+Frontend
+●) Navigate to the frontend directory</br/
 ●) From the teminal, with frontend directory open, type and then enter 
 ```
 npm run dev
@@ -22,8 +22,8 @@ VITE v7.1.2  ready in 2710 ms
   ➜  press h + enter to show help
 
 
-## Backend
-●) Navigate to the backend directory
+ Backend
+●) Navigate to the backend directory<br/>
 ●) Then type (if you using nodemon)
 ```
 npm start run
