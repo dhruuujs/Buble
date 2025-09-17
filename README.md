@@ -29,11 +29,11 @@ VITE v7.1.2  ready in 2710 ms
 npm start run
 ```
 ::The console should say something like
-
+`
 [dotenv@17.2.1] injecting env (8) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
 [dotenv@17.2.1] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
 [dotenv@17.2.1] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
 [dotenv@17.2.1] injecting env (0) from .env
 Server Banana running on port: 5000
-
+`
 Would love to hear from you, open for any suggestions ^_^
