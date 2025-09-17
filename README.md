@@ -1,12 +1,13 @@
-Sep, 2025
+## Sep, 2025
+<br/>
 This project is a react and express js chatting app, im still working on this app(as of Sep, 2025)
 
 
-1)REQUIREMENT
+## 1)REQUIREMENT
 React, Expressjs, and Postgresql
 
-2)HOW TO RUN:
-Frontend
+## 2)HOW TO RUN:
+## Frontend
 ●) Navigate to the frontend directory
 ●) From the teminal, with frontend directory open, type and then enter 
 ```
@@ -21,7 +22,7 @@ VITE v7.1.2  ready in 2710 ms
   ➜  press h + enter to show help
 
 
-2)Backend
+## Backend
 ●) Navigate to the backend directory
 ●) Then type (if you using nodemon)
 ```
