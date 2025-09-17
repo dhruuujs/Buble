@@ -8,7 +8,10 @@ React, Expressjs, and Postgresql
 2)HOW TO RUN:
 Frontend
 ●) Navigate to the frontend directory
-●) From the teminal, with frontend directory open, type 'npm run dev'
+●) From the teminal, with frontend directory open, type and then enter 
+```
+npm run dev
+```
 ::The console should say something like this
 
 VITE v7.1.2  ready in 2710 ms
@@ -20,7 +23,10 @@ VITE v7.1.2  ready in 2710 ms
 
 2)Backend
 ●) Navigate to the backend directory
-●) Then type 'npm start run' (if you using nodemon)
+●) Then type (if you using nodemon)
+```
+npm start run
+```
 ::The console should say something like
 
 [dotenv@17.2.1] injecting env (8) from .env -- tip: 📡 version env with Radar: https://dotenvx.com/radar
