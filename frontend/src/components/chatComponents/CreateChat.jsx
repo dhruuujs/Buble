@@ -19,9 +19,7 @@ function DateStamp({ date }) {
   });
 
   const td = new Date(formattedDate).toLocaleString('en-US')
-const tdD=td-formattedDate
-  console.log(tdD)
-  
+ 
   return (
     <div className="flex justify-center my-4">
       <span className="bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold">
@@ -40,14 +38,14 @@ export default function CreateChat({selectedChat}) {
   useEffect(() => {
     socket.connect(SOCKET_SERVER_URL);
 
-    socket.on('receive_message', (msg) => {
+    socket.on('welcome_message', (msg) => {
       setMessages(prev => [...prev, msg]);
     });
     return () => {
-      socket.off('receive_message');
+      socket.off('welcome_message');
       socket.disconnect();
     };
-  },[console.log("Listening for msgs")]);
+  },[]);
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -61,15 +59,15 @@ export default function CreateChat({selectedChat}) {
     const trimmed = inputValue.trim();
     if (!trimmed) return;
 
-    const newMessage = {
+    var newMessage = {
       id: Date.now(), // Better unique id than length
       text: trimmed,
       sender: user?.username || 'me',
-      name: user?.username || 'You',
+      name: user?.username || 'Dhruba',
       timestamp: new Date().toISOString(),
     };
 
-    const myMsg="My message"
+    //const myMsg="My message"
     socket.emit('send_message', trimmed);
 
     // Optionally, show message instantly (optimistic UI)
@@ -87,10 +85,10 @@ export default function CreateChat({selectedChat}) {
     }
   };
 
-  const groupedMessages = messages.reduce((groups, msg) => {
-    const date = new Date(msg.timestamp).toISOString().split('T')[0];
+  const groupedMessages = messages.reduce((groups, newMessage) => {
+    const date = newMessage.timestamp ? new Date(newMessage.timestamp).toISOString().split('T')[0] : '';
     if (!groups[date]) groups[date] = [];
-    groups[date].push(msg);
+    groups[date].push(newMessage);
     return groups;
   }, {});
   const sortedDates = Object.keys(groupedMessages).sort((a, b) => new Date(a) - new Date(b));
@@ -101,7 +99,7 @@ export default function CreateChat({selectedChat}) {
       <div className="chatbox flex flex-col h-[90vh] w-full">
       {/* Header */}
 
-      <div className="flex py-3 relative bg-[#232323]">   
+      <div className="flex py-2 relative bg-[#232323]">   
         <div className="mr-2">
           <img src={asian} alt="User" className="h-15 w-15 ml-3 rounded-4xl" />
         </div>
@@ -112,9 +110,9 @@ export default function CreateChat({selectedChat}) {
       </div>
 
       {/* Chat messages */}
-      <div className="flex flex-col w-full">
-        <div id="chatCtrlParentWindow" className="chatCtrlView no-scrollbar bg-[#282828] overflow-hidden flex flex-col pb-5 h-[75vh] ">
-          <div className="flex-1 overflow-y-auto space-y-4">
+      <div className="flex flex-col w-full relative h-[90%]">
+        <div id="chatCtrlParentWindow" className="chatCtrlView no-scrollbar bg-[#282828] overflow-hidden flex flex-col mr-5 w-[70vw] h-full ">
+          <div className="flex-1 overflow-y-auto p-2 space-y-20">
             {sortedDates.map((date) => (
               <div key={date}>
                 <DateStamp date={date} />
@@ -134,15 +132,18 @@ export default function CreateChat({selectedChat}) {
             <div ref={chatEndRef} />
           </div>
         </div>
+      </div>
+      
 
         {/* Input controls */}
-        <div className="ctrlContainer flex absolute bg-[#282828] w-[calc(100%-29.5vw)] shadow-[0px_-10px_20px_rgba(20,20,20,0.2)] p-2 bottom-0">
+        <div className="ctrlContainer flex absolute bg-[#1c1e1f] w-[70vw] shadow-[0px_-10px_20px_rgba(20,20,20,0.2)] p-2 bottom-0">
           <form onSubmit={handleSendMessage} className="h-fit w-full inline-block items-center">
             <input rows="2"
               id="msgBox"
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
+              autoComplete="false"
               placeholder="Enter your message"
               className="bg-[#f4f4f4] text-[#252525] mt-2 h-12 text-[1rem] ml-0 p-3 w-[50rem] rounded-[50px] outline-0"/>
               <button type="submit" className="h-12 w-11 cursor-pointer ml-2 px-3 rounded-[50px] bg-green-800">
@@ -150,7 +151,7 @@ export default function CreateChat({selectedChat}) {
             </button>
           </form>
         </div>
-      </div>
+        
     </div> ):(<p><strong>Select a contact to start chating</strong></p>)}
     </>
     )
