@@ -46,7 +46,7 @@ const messagesTest = [
   `;
 
   const messageBubbleClasses = `
-    max-w-[70%] p-3 m-1 rounded-xl
+    max-w-[100%] w-fit p-3 m-1 rounded-xl
     text-white shadow-[3px_3px_10px_rgba(0,0,0,0.5),-1px_-1px_15px_rgba(80,80,80,0.5)] transform transition-transform duration-200
     ${isMe ? 'bg-blue-600 rounded-br-none' : 'bg-gray-700 rounded-bl-none'}
   `;
@@ -83,7 +83,7 @@ const togglePopup=()=>{
   return (
     <div className={chatBubbleClasses} >
       
-      <div className="flex items-end max-w-lg relative" ref={bubbleRef}>
+      <div className=" flex items-end max-w-lg relative" ref={bubbleRef}>
         
     
         {isPopupOpen && ( 
