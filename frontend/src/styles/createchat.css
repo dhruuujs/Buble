@@ -1,0 +1,12 @@
+.gridContainer{
+display:grid;
+grid-row: 3;
+}
+
+#settingBtn{
+transition:all 0.2s linear;
+}
+
+#settingBtn:hover{
+transform:rotate(45deg) scale(0.8,0.8);
+}
