@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import sendbtn from '../../assets/sendbtn.png';
 import asian from '../../assets/asian.png';
+import texture from '../../assets/texture.svg'
+import chatBg from '../../assets/chatbg.jpeg'
 import '../../styles/chatlayout.css';
 import ChatBubble from '../chatComponents/ChatBubble.jsx';
 import { AuthContext } from '../../context/AuthContext';
@@ -11,15 +13,18 @@ const socket = io(SOCKET_SERVER_URL, { autoConnect: false }); // Only connect in
 
 // DateStamp component for displaying formatted date
 function DateStamp({ date }) {
-  const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  if (!date) return null;
+  // date is expected to be an ISO date string (YYYY-MM-DD or full ISO timestamp)
+  const d = new Date(date);
+  if (Number.isNaN(d.getTime())) return <div className="flex justify-center my-4"><span className="bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold">Invalid date</span></div>;
+
+  const formattedDate = d.toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
 
-  const td = new Date(formattedDate).toLocaleString('en-US')
- 
   return (
     <div className="flex justify-center my-4">
       <span className="bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold">
@@ -60,21 +65,20 @@ export default function CreateChat({selectedChat}) {
     if (!trimmed) return;
 
     var newMessage = {
-      id: Date.now(), // Better unique id than length
+      id: Date.now(),
       text: trimmed,
       sender: user?.username || 'me',
       name: user?.username || 'Dhruba',
       timestamp: new Date().toISOString(),
     };
 
-    //const myMsg="My message"
-    socket.emit('send_message', trimmed);
+    const myMsg="My message"
+    socket.emit('send_message', myMsg);
 
     // Optionally, show message instantly (optimistic UI)
     setMessages(prev => [...prev, newMessage]);
     setInputValue('');
   };
-
   const handleDeleteMessage = (idToDelete) => {
     setMessages(messages => messages.filter(msg => msg.id !== idToDelete));
   };
@@ -101,7 +105,7 @@ export default function CreateChat({selectedChat}) {
 
       <div className="flex py-2 relative bg-[#232323]">   
         <div className="mr-2">
-          <img src={asian} alt="User" className="h-15 w-15 ml-3 rounded-4xl" />
+          <img src={selectedChat?.avatar || asian} alt="User" className="h-15 w-15 ml-3 rounded-4xl object-cover" />
         </div>
         <div className=" flex flex-col pt-2">
           <h2 className="text-[1rem] mb-[-0.4em] font-bold">{selectedChat?.name || "Alice"}</h2>
@@ -152,7 +156,11 @@ export default function CreateChat({selectedChat}) {
           </form>
         </div>
         
-    </div> ):(<p><strong>Select a contact to start chating</strong></p>)}
+    </div> ):(
+      <div>
+        <img src={chatBg} height={500} width={1200} style={{opacity:0.01}} alt="bg texture"/>
+      </div>
+      )}
     </>
     )
   }
