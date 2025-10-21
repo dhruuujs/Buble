@@ -6,12 +6,13 @@ import login from '../backend/routes/authRoutes.js'
 import signup from '../backend/routes/authRoutes.js'
 import auth from '../backend/routes/authRoutes.js'
 
+
 const app=express();
 dotenv.config();
 
 //Configs
 app.use(cors({
-    orgin:"http://localhost:5173",
+    orgin:"*",
     optionsSuccessStatus:200
     }))
 app.use(helmet());
@@ -23,10 +24,6 @@ try{
 app.use("/account",login);
 app.use("/account",signup);
 app.use("/account",auth);
-
-
-
-
 }catch(err){
   console.log(err);
 }
