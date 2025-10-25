@@ -2,10 +2,13 @@ import socketServer from '../services/socketService.js'
 
 const setupSocketIO = (io) => {
   io.on('connection', (socket) => {
-    console.log('Client connected:', socket.id);
+    console.log('Client connected:', socket.id,Date.now());
        socket.emit('welcome_message', 'Welcome! You are now connected.');
-        try{
-            //const savedMessage = await socketService.saveMessage(msg);
+       socket.emit('welcome_message','This app is still under development.');
+        
+       
+       try{
+        //const savedMessage = await socketService.saveMessage(msg);
         }catch(err){
           throw err;
         }
