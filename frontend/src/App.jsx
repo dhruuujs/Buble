@@ -3,6 +3,7 @@ import HomePage from './pages/homepage';
 import ChatListLayout from '../src/components/chatComponents/chatlayout'
 import SignupForm from './pages/signupform'; 
 import LoginForm from './pages/loginform'
+import NotFound from './pages/NotFound';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {AuthProvider} from './context/AuthContext';
 import ProtectedRoute from './components/privateroutes';
@@ -40,6 +41,15 @@ return(
     <LoginForm/>
     </section>
     }/>
+
+
+<Route path="*" element={
+    <section className="">
+    <NotFound/>
+    </section>
+    }/>
+
+
 
 </Routes>
 </AuthProvider>
