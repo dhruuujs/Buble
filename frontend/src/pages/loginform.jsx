@@ -48,7 +48,7 @@ try{
   const data = await response.json();
   if(!data){
     setIsLoading(false)
-    setError(`Error: ${data.error}`);
+    setError(`${data.error}`);
   }
 
   if(response.ok){
@@ -62,7 +62,7 @@ try{
 
   }catch(err){ 
     setIsLoading(false)
-    setError(`Error: ${err}`);
+    setError(`${err}`);
   }
 
 }
