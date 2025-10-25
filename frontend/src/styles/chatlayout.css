@@ -1,7 +1,3 @@
-.chatbox{
-    display: grid;
-    grid-template-rows: 0.25fr 3fr 0.4fr;
-}
 
 .no-scrollbar::-webkit-scrollbar{
   display: none;
@@ -10,4 +6,20 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.settingContiner ol li{
+border-radius: 4px;
+padding:4px;
+margin:0.5em;
+font-size:1.1rem;
+}
+
+.settingContiner ol li:hover{
+  background: #999;
+}
+
+.activeSettingBtn{
+  background: #f00;
+  color:#111;
 }
