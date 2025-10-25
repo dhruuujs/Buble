@@ -7,6 +7,7 @@ class Users{
         const values = [username, psw, secondCred];
         const {rows} = await pool.query(insert_query,values)
     return rows[0];
+    
     }catch(err){
         return err;
     }
@@ -24,6 +25,12 @@ class Users{
     static async findUserByUsername(username){
         const {rows} = await pool.query(`SELECT * FROM users WHERE username=$1`,[username]);
     return rows[0]
+    }
+
+    static async findUserByEmailAndUsername(username){
+    const {rows} = await pool.query(`SELECT * FROM users WHERE username=$1 OR email=$1`,[username])
+    console.log("This is the first row",rows)
+            return rows[0]
     }
     
 }
