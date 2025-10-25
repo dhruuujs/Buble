@@ -23,13 +23,10 @@ try{
       setError("Enter username") 
       return;
     }
-
     if(!text.length>=3){
       setError("Username must be at least 3 characters long");
       return;
     }
-
-
     if(!password){
       setError("Enter password");
       return;
@@ -55,15 +52,18 @@ try{
 });
 
 const data = await response.json();
-
+if(response.ok){
 login(data.username,data.token)
+}else{
+  setError(data.error)
+  setLoading(false);
+}
+
 }catch(err){
     setError(`Failed to create account at the moment`)
     setLoading(false);
   }
 }
-
-
 
   return(
         <>
@@ -114,7 +114,6 @@ login(data.username,data.token)
               <RiEyeOffFill className="text-[#222] mt-3 text-2xl"/>:<RiEyeFill className="text-[#222] mt-3 text-2xl"/>
             }</span>
             </div>
-           
           </div>
 
           <div>
@@ -127,7 +126,6 @@ login(data.username,data.token)
             className="mt-1 block w-full px-4 py-2 border border-gray-300 outline-0 text-[#282828] rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Email/Phone number"/>
           </div>
-
              {error && <span className='p-1 text-red-500' style={{fontFamily:"'Roboto', sans-serif"}}>{error}</span>}
           </div>
           
