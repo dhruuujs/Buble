@@ -21,10 +21,6 @@ export const login = async(req,res)=>{
             return res.status(401).json({error:"Password is not valid"})
         }
 
-        const rowUser = await Users.findUserByUsername(username);
-        if(!rowUser){
-            throw new Error("User not found!")
-        }
         //console.log("This is user row",rowUser)
         const {user,token} = await AuthService.loginUser(username,password)  
       return res.status(200).json({user:user.username,token:token})
@@ -33,34 +29,36 @@ export const login = async(req,res)=>{
     }
 }
 
+
+
+
 export const signup = async(req,res)=>{
 try{
  const {username,password,secondCred} = await req.body;
    
     if(!username){
-            throw new Error("Username required");
+        return res.status(400).json({error:"Username required"})
         }
         if(!password){
-            throw new Error("Password required");        
+        return res.status(400).json({error:"Password required"})
         }
         if(!secondCred){
-            throw new Error("Email or phone number required");               
+            return res.status(400).json({error:"Email or phone number required"});               
         }
 
     const existingUsr = await Users.findUserByUsername(username);
     if(existingUsr){
-        return res.status(400).json({
+        return res.status(401).json({
             error:"User already exists"
         })
     }
     const {user,token} = await AuthService.signupUser(username,password,secondCred);
     if(!user){
-        throw new Error("Failed to create user:",user)
+        return res.status(400).json({error:`Failed to create user: ${user}`})
     }
     if(!token){
-        throw new Error("Failed to create token!\n")
+        return res.status(400).json({error:"Failed to create token!"})
     }
-
     return res.status(200).json({
         user:user,
         token:token
