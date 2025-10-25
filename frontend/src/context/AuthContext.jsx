@@ -7,7 +7,6 @@ const AuthContext = createContext(null)
 export const AuthProvider =({children})=>{
 
 try{
-
     const [user,setUser] = useState(null);
     const [token,setToken] = useState(localStorage.getItem('token') || null)
     const navigate = useNavigate();
@@ -38,7 +37,7 @@ const logout = useCallback(()=>{
     localStorage.removeItem("token");
     setToken(null);
     setUser(null);
-    navigate("/login")
+    navigate("/")
 },[navigate])
 
 
