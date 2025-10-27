@@ -6,7 +6,7 @@ import whiteman from '../../assets/whiteman.png';
 function Profile(){
     return(
     
-        <div className="profileContainer pt-5 pl-5 overflow-hidden">
+        <div className="profileContainer z-[9999] pt-5 pl-5 overflow-hidden">
             <div className="rounded-full h-22 w-22 mb-8 bg-amber-500">
                 <img src={whiteman}/>
             </div>
