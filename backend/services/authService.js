@@ -6,7 +6,12 @@ import {generateToken} from '../utils/jwt.js'
 class AuthService{
 //Signup Function
     static async signupUser(username,password,secondCred,){
-        try{ 
+    try{ 
+    const userExist = await Users.findUserByUsername(username);
+    if(userExist){
+        return {error:"Username already in use"}; 
+    }
+    
     const hashedPassword = await bcrypt.hash(password,12)
     const user = await Users.createAccount(username,hashedPassword,secondCred);
     console.log("User ",user.username+" created.")    
@@ -22,13 +27,13 @@ class AuthService{
 static async loginUser(username,password){
    try{ 
     if(!username){
-        throw new Error("Invalid username");
+        throw new Error("Username required");
     }
     if(!password){
-        throw new Error("Invalid password");
+        throw new Error("Password required");
     }
-    const user = await Users.findUserByUsername(username);
-    
+
+    const user = await Users.findUserByEmailAndUsername(username);
     if(!user){
         throw new Error("Username doesn't exist");
     }
