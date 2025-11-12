@@ -1,12 +1,20 @@
 //Buble
 import Users from '../models/usermodel.js'
 import AuthService from '../services/authService.js'
-
+import Mailer from '../services/mailer.js'
 
 //export const fetchUser=async(req,res)=>{try{
         //const {username} = await req.body
         //const rows = Users.findUserByUsername(username);
         //res.status(200).json({userData:rows[0]})}catch(err){}}
+
+export const sendOtp = async (req,res)=>{
+try{
+    res.status(200).json({success:`Email sent successfully`})
+}catch(err){    
+    res.status(400).json({error:`Failed to send otp: ${err.code} ${err.message}`})
+}
+}
 
 
 export const login = async(req,res)=>{
@@ -52,6 +60,11 @@ try{
             error:"User already exists"
         })
     }
+
+
+    //const {otp} = await Mailer.sendOtp(secondCred);
+
+
     const {user,token} = await AuthService.signupUser(username,password,secondCred);
     if(!user){
         return res.status(400).json({error:`Failed to create user: ${user}`})
