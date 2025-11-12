@@ -1,6 +1,6 @@
 ## Sep, 2025
 <br/>
-This project is a react and express js chatting app, im still working on this app(as of Sep, 2025)
+This project is a react and express js chatting app, im still working on this app(as of Sep, 2025). I started this as a personal project, so i only work on it when i get time off.
 
 
 ## 1)REQUIREMENT
