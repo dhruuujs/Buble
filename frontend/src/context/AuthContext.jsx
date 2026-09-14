@@ -24,7 +24,7 @@ const login = useCallback(async (userData,authToken)=>{
         throw new Error("User details not valid!")
     }
 
-    //seanmadden
+
     localStorage.setItem("token", authToken);
     console.log("Saving token to local storage:", authToken);
     setToken(authToken);
@@ -62,7 +62,7 @@ return user;
 
 useEffect(()=>{
     const storedToken = localStorage.getItem("token");
-    if(!storedToken) throw new Error("Failed to access token!\n");
+    //if(!storedToken) console.log("Failed to access token")//throw new Error("Failed to access token!\n");
 
 verifyToken(storedToken).then(user=>{
     setUser(user);

@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import HomePage from './pages/homepage';
-import ChatListLayout from '../src/components/chatComponents/chatlayout'
+import ChatListLayout from '../src/pages/chatlayout'
 import SignupForm from './pages/signupform'; 
 import LoginForm from './pages/loginform'
 import NotFound from './pages/NotFound';
