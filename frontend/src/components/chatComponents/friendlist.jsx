@@ -5,6 +5,8 @@ import blackman from '../../assets/blackman.png';
 import gentleman from '../../assets/gentlemanpfp.png';
 import whiteman from '../../assets/whiteman.png';
 import { AuthContext } from '../../context/AuthContext';
+import '../../styles/createchat.css'
+
 
 export default function FriendList({onFriendClick}){
 
@@ -50,7 +52,7 @@ const loadFriends= async(person)=>{}
 }*/}
 
 return(
-        <div className="bg-[#282828] border-r-[1px] border-r-[#464646]" style={{width:"25vw",height:"92vh"}}>      
+        <div className="friendlistContainer border-r-[1px] border-r-[#464646]">      
         <h1 className="font-bold text-2xl ml-2 mt-5">Messages</h1>
                
             <div className="py-2">       

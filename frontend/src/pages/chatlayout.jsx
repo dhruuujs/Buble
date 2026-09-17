@@ -9,6 +9,7 @@ import '../styles/createchat.css'
 
 
 
+
 function ChatLayout(){
 
   const [chatOpen,setSelectedChatOpen]  = useState(null);
@@ -41,13 +42,13 @@ const openSetting=()=>{
 
 return(
     <div className="max-w-screen h-[100vh] overflow-hidden">
-            <div className="bg-[#1d1e1f] h-[10vh] max-w-screen overflow-hidden " >
-                <img src={bubleLogo} className="ml-18 mt-6 h-7"/>
+            <div className="chatTopBar max-w-screen" >
+                <img src={bubleLogo} className="h-7"/>
             </div>
     
     <div className="flex">    
-            <div className="w-[6vw] h-[full] bg-[#1d1e1f] relative">   
-                <img src={settingBtn} onClick={openSetting} id="settingBtn" className="h-7 w-7 ml-3.5 mt-[40rem]"/>       
+            <div className="chatSideBar">   
+                <img src={settingBtn} onClick={openSetting} id="settingBtn" className=" h-7 w-7 ml-3.5"/>       
             
             {settingWindow && (
             <div className="settingContiner flex absolute h-[70vh] w-[30vw] left-1 bottom-1 bg-[#1f2021]"  ref={settingRef}>

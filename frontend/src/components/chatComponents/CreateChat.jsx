@@ -5,13 +5,9 @@ import chatBg from '../../assets/chatbg.jpeg'
 import '../../styles/chatlayout.css';
 import ChatBubble from '../chatComponents/ChatBubble.jsx';
 import { AuthContext } from '../../context/AuthContext';
-import io from 'socket.io-client';
 import menudot from '../../assets/menudots.svg'
 
 
-
-const SOCKET_SERVER_URL = "http://localhost:5000";
-const socket = io(SOCKET_SERVER_URL, { autoConnect: false });
 
 function DateStamp({ date }) {
   if (!date) return null;
@@ -49,45 +45,7 @@ export default function CreateChat({selectedChat}) {
 
 
   useEffect(() => {
-    socket.connect(SOCKET_SERVER_URL);
-
-    // handler that validates and normalizes incoming messages
-    const handleWelcome = (msg) => {
-      if (msg === undefined || msg === null) return;
-
-      // If server sends a simple welcome string, treat it as a system message
-      if (typeof msg === 'string') {
-        const sysMsg = {
-          id: Date.now() + Math.floor(Math.random() * 1000),
-          text: msg,
-          sender: 'system',
-          name: 'System',
-          timestamp: new Date().toISOString(),
-        };
-        setMessages(prev => [...prev, sysMsg]);
-        return;
-      }
-
-      // normalize timestamp: ensure it's a valid ISO string for object messages
-      let ts = msg.timestamp;
-      if (!ts) ts = new Date().toISOString();
-      else {
-        const parsed = new Date(ts);
-        if (Number.isNaN(parsed.getTime())) ts = new Date().toISOString();
-        else ts = parsed.toISOString();
-      }
-      const normalized = { ...msg, timestamp: ts };
-
-      // don't append non-system messages until a chat is selected
-      if (!selectedChat) return;
-      setMessages(prev=>[...prev,normalized]);
-    };
-    socket.on('welcome_message', handleWelcome);
-
-    return () => {
-      socket.off('welcome_message', handleWelcome);
-      socket.disconnect();
-    };
+    
   },[selectedChat]);
 
   useEffect(() => {

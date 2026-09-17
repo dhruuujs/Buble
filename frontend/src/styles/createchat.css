@@ -1,12 +1,44 @@
+:root{
+--chatTopBarHeight:var(15vh);
+}
+.chatTopBar{
+    background:#1d1e1f;
+    height:var(--chatTopBarHeight);
+    overflow:hidden;
+}
+
+
+.chatTopBar img{
+    margin:1.5rem 0 0 4.5rem;
+}
+
+
 .gridContainer{
 display:grid;
 grid-row: 3;
 }
 
+.chatSideBar{
+    height:calc(100vh - var(--chatTopBarHeight));
+    width:6vw;
+    background: #1d1e1f;
+}
+
 #settingBtn{
-transition:all 0.2s linear;
+    position:absolute;
+    bottom:5%;
+    transition:all 0.2s linear;
 }
 
 #settingBtn:hover{
 transform:rotate(45deg) scale(0.8,0.8);
+}
+
+
+
+/*Friend List Styles*/
+.friendlistContainer{
+    height:calc(10vh-var(--chatTopBarHeight));
+    width:25vw;
+   background: #282828;
 }
