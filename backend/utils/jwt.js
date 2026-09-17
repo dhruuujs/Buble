@@ -8,16 +8,16 @@ const { JWT_SECRET_KEY, JWT_EXPIRES_IN } = process.env;
 
 
 export const generateToken = (userId,user)=>{
-    return sign(
+  return sign(
         {userId,user},
-        JWT_SECRET_KEY || "usPnV2sL0x5bsFWsbmoqMG",
+        JWT_SECRET_KEY,
         {expiresIn: JWT_EXPIRES_IN}
     );
 }
 
 export const verifyToken = (token)=>{
   try{
-return verify(token, JWT_SECRET_KEY || "usPnV2sL0x5bsFWsbmoqMG");
+return verify(token, JWT_SECRET_KEY);
   }catch(err){
     return err;
   }
